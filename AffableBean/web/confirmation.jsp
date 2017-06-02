@@ -1,6 +1,6 @@
 <%--
-    Document   : index
-    Created on : Jun 9, 2010, 3:59:32 PM
+    Document   : confirmation
+    Created on : Sep 9, 2009, 12:20:30 AM
     Author     : tgiunipero
 --%>
 
@@ -19,9 +19,7 @@
             <div id="header">
                 <div id="widgetBar">
 
-                    <div class="headerWidget">
-                        [ language toggle ]
-                    </div>
+                    <div class="headerWidget"></div>
 
                     <div class="headerWidget"></div>
 
@@ -38,32 +36,31 @@
                 <img src="#" id="logoText" alt="the affable bean">
             </div>
 
-            <div id="indexLeftColumn">
-                <div id="welcomeText">
-                    <p>[ welcome text ]</p>
-                </div>
-            </div>
+            <div id="singleColumn">
 
-            <div id="indexRightColumn">
-                <div class="categoryBox">
-                    <a href="#">
-                        <span class="categoryLabelText">dairy</span>
-                    </a>
+                <p id="confirmationText">
+                    [ text ]
+                    <br><br>
+                    [ order reference number ]
+                </p>
+
+                <div class="summaryColumn" >
+
+                    <table id="orderSummaryTable" class="detailsTable" >
+                        <tr class="header">
+                            <th style="padding:10px">[ order summary table ]</th>
+                        </tr>
+                    </table>
+
                 </div>
-                <div class="categoryBox">
-                    <a href="#">
-                        <span class="categoryLabelText">meats</span>
-                    </a>
-                </div>
-                <div class="categoryBox">
-                    <a href="#">
-                        <span class="categoryLabelText">bakery</span>
-                    </a>
-                </div>
-                <div class="categoryBox">
-                    <a href="#">
-                        <span class="categoryLabelText">fruit & veg</span>
-                    </a>
+
+                <div class="summaryColumn" >
+
+                    <table id="deliveryAddressTable" class="detailsTable">
+                        <tr class="header">
+                            <th style="padding:10px">[ customer details ]</th>
+                        </tr>
+                    </table>
                 </div>
             </div>
 
