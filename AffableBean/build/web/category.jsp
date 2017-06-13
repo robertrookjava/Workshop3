@@ -4,6 +4,19 @@
     Author     : tgiunipero
 --%>
 
+<%@taglib prefix="c" uri="http://java.sun.com/jsp/jstl/core"%>
+<%@taglib prefix="sql" uri="http://java.sun.com/jsp/jstl/sql"%>
+
+<sql:query var="categories" dataSource="jdbc/affablebean">
+    SELECT * FROM category
+</sql:query>
+<sql:query var="selectedCategory" dataSource="jdbc/affablebean">
+    SELECT name FROM category WHERE id = ?
+    <sql:param value="${pageContext.request.queryString}"/>
+</sql:query>
+
+
+
 <%@page contentType="text/html" pageEncoding="UTF-8"%>
 <!DOCTYPE HTML PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN"
     "http://www.w3.org/TR/html4/loose.dtd">
@@ -41,25 +54,31 @@
             </div>
 
             <div id="categoryLeftColumn">
+                <c:forEach var="category" items="${categories.rows}">
+
+        <c:choose>
+            <c:when test="${category.id == pageContext.request.queryString}">
                 <div class="categoryButton" id="selectedCategory">
-                    <span class="categoryText">dairy</span>
+                    <span class="categoryText">
+                        ${category.name}
+                    </span>
                 </div>
-
-                <a href="#" class="categoryButton">
-                    <span class="categoryText">meats</span>
+            </c:when>
+            <c:otherwise>
+                <a href="category?${category.id}" class="categoryButton">
+                    <div class="categoryText">
+                        ${category.name}
+                    </div>
                 </a>
+            </c:otherwise>
+        </c:choose>
 
-                <a href="#" class="categoryButton">
-                    <span class="categoryText">bakery</span>
-                </a>
+    </c:forEach>
 
-                <a href="#" class="categoryButton">
-                    <span class="categoryText">fruit & veg</span>
-                </a>
             </div>
 
             <div id="categoryRightColumn">
-                <p id="categoryTitle">[ selected category ]</p>
+                <p id="categoryTitle">${selectedCategory.rows[0].name}</p>
 
                 <table id="productTable">
                     <tr>
