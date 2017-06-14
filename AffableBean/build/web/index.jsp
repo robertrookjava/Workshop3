@@ -17,7 +17,7 @@
         <title>The Affable Bean</title>
     </head>
     <body>
-        <c:forEach var="category" items="${categories}">
+        
             <div id="main">
                 <div id="header">
                     <div id="widgetBar">
@@ -51,7 +51,7 @@
                 </div>
 
                 <div id="indexRightColumn">
-                    <c:forEach var="category" items="${categories.rows}">
+                    <c:forEach var="category" items="${categories}">
                         <div class="categoryBox">
                             <a href="category?${category.id}">
 
