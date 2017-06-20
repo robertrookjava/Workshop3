@@ -5,8 +5,10 @@
  */
 package rest;
 
-import pojo.Klant;
+import dao.AccountypeDao;
+import pojo.Accountype;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,67 +27,58 @@ import javax.ws.rs.core.MediaType;
  * @author robertrook
  */
 @Stateless
-@Path("klant")
-public class KlantFacadeREST extends AbstractFacade<Klant> {
+@Path("accountype")
+public class AccountypeRest {
 
-    @PersistenceContext(unitName = "com.mycompany_Rest_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
-    public KlantFacadeREST() {
-        super(Klant.class);
-    }
+    @EJB
+    private AccountypeDao accountypeDao;
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Klant entity) {
-        super.create(entity);
+    public void create(Accountype entity) {
+        accountypeDao.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Klant entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, Accountype entity) {
+        accountypeDao.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
+        accountypeDao.remove(accountypeDao.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Klant find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public Accountype find(@PathParam("id") Integer id) {
+        return accountypeDao.find(id);
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Klant> findAll() {
-        return super.findAll();
+    public List<Accountype> findAll() {
+        return accountypeDao.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Klant> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<Accountype> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return accountypeDao.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
-        return String.valueOf(super.count());
+        return String.valueOf(accountypeDao.count());
     }
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+    
     
 }

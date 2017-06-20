@@ -5,7 +5,7 @@
  */
 package dao;
 
-import pojo.Accountype;
+import pojo.Klant;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author robertrook
  */
 @Stateless
-public class AccountypeFacade extends AbstractFacade<Accountype> {
+public class KlantDao extends AbstractDao<Klant> {
 
     @PersistenceContext(unitName = "com.mycompany_Rest_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class AccountypeFacade extends AbstractFacade<Accountype> {
         return em;
     }
 
-    public AccountypeFacade() {
-        super(Accountype.class);
+    public KlantDao() {
+        super(Klant.class);
     }
     
 }

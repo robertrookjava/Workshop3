@@ -5,8 +5,10 @@
  */
 package rest;
 
-import pojo.Artikel;
+import dao.BestellingDao;
+import pojo.Bestelling;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,67 +27,59 @@ import javax.ws.rs.core.MediaType;
  * @author robertrook
  */
 @Stateless
-@Path("artikel")
-public class ArtikelFacadeREST extends AbstractFacade<Artikel> {
+@Path("bestelling")
+public class BestellingRest {
 
-    @PersistenceContext(unitName = "com.mycompany_Rest_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
-    public ArtikelFacadeREST() {
-        super(Artikel.class);
-    }
+    @EJB
+    private BestellingDao bestellingDao;
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Artikel entity) {
-        super.create(entity);
+    public void create(Bestelling entity) {
+        bestellingDao.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Artikel entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, Bestelling entity) {
+        bestellingDao.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
+        bestellingDao.remove(bestellingDao.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Artikel find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public Bestelling find(@PathParam("id") Integer id) {
+        return bestellingDao.find(id);
     }
 
     @GET
-    @Override
+
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Artikel> findAll() {
-        return super.findAll();
+    public List<Bestelling> findAll() {
+        return bestellingDao.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Artikel> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<Bestelling> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return bestellingDao.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
-        return String.valueOf(super.count());
+        return String.valueOf(bestellingDao.count());
     }
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+    
     
 }

@@ -5,8 +5,10 @@
  */
 package rest;
 
-import pojo.Adres;
+import dao.AccountDao;
+import pojo.Account;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -25,67 +27,58 @@ import javax.ws.rs.core.MediaType;
  * @author robertrook
  */
 @Stateless
-@Path("adres")
-public class AdresFacadeREST extends AbstractFacade<Adres> {
+@Path("account")
+public class AccountRest {
 
-    @PersistenceContext(unitName = "com.mycompany_Rest_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
-    public AdresFacadeREST() {
-        super(Adres.class);
-    }
+    @EJB
+    private AccountDao accountDao;
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void create(Adres entity) {
-        super.create(entity);
+    public void create(Account entity) {
+        accountDao.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public void edit(@PathParam("id") Integer id, Adres entity) {
-        super.edit(entity);
+    public void edit(@PathParam("id") Integer id, Account entity) {
+        accountDao.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
+        accountDao.remove(accountDao.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public Adres find(@PathParam("id") Integer id) {
-        return super.find(id);
+    public Account find(@PathParam("id") Integer id) {
+        return accountDao.find(id);
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Adres> findAll() {
-        return super.findAll();
+    public List<Account> findAll() {
+        return accountDao.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
-    public List<Adres> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+    public List<Account> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
+        return accountDao.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
-        return String.valueOf(super.count());
+        return String.valueOf(accountDao.count());
     }
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+    
     
 }

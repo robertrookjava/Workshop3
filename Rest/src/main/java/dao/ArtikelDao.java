@@ -5,7 +5,7 @@
  */
 package dao;
 
-import pojo.KlantHeeftAdres;
+import pojo.Artikel;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -15,7 +15,7 @@ import javax.persistence.PersistenceContext;
  * @author robertrook
  */
 @Stateless
-public class KlantHeeftAdresFacade extends AbstractFacade<KlantHeeftAdres> {
+public class ArtikelDao extends AbstractDao<Artikel> {
 
     @PersistenceContext(unitName = "com.mycompany_Rest_war_1.0-SNAPSHOTPU")
     private EntityManager em;
@@ -25,8 +25,8 @@ public class KlantHeeftAdresFacade extends AbstractFacade<KlantHeeftAdres> {
         return em;
     }
 
-    public KlantHeeftAdresFacade() {
-        super(KlantHeeftAdres.class);
+    public ArtikelDao() {
+        super(Artikel.class);
     }
     
 }

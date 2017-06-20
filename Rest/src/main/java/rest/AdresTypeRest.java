@@ -5,8 +5,10 @@
  */
 package rest;
 
+import dao.AdresTypeDao;
 import pojo.AdresType;
 import java.util.List;
+import javax.ejb.EJB;
 import javax.ejb.Stateless;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -26,66 +28,57 @@ import javax.ws.rs.core.MediaType;
  */
 @Stateless
 @Path("adrestype")
-public class AdresTypeFacadeREST extends AbstractFacade<AdresType> {
+public class AdresTypeRest {
 
-    @PersistenceContext(unitName = "com.mycompany_Rest_war_1.0-SNAPSHOTPU")
-    private EntityManager em;
-
-    public AdresTypeFacadeREST() {
-        super(AdresType.class);
-    }
+    @EJB
+    private AdresTypeDao adresTypeDao;
 
     @POST
-    @Override
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void create(AdresType entity) {
-        super.create(entity);
+        adresTypeDao.create(entity);
     }
 
     @PUT
     @Path("{id}")
     @Consumes({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public void edit(@PathParam("id") Integer id, AdresType entity) {
-        super.edit(entity);
+        adresTypeDao.edit(entity);
     }
 
     @DELETE
     @Path("{id}")
     public void remove(@PathParam("id") Integer id) {
-        super.remove(super.find(id));
+        adresTypeDao.remove(adresTypeDao.find(id));
     }
 
     @GET
     @Path("{id}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public AdresType find(@PathParam("id") Integer id) {
-        return super.find(id);
+        return adresTypeDao.find(id);
     }
 
     @GET
-    @Override
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<AdresType> findAll() {
-        return super.findAll();
+        return adresTypeDao.findAll();
     }
 
     @GET
     @Path("{from}/{to}")
     @Produces({MediaType.APPLICATION_XML, MediaType.APPLICATION_JSON})
     public List<AdresType> findRange(@PathParam("from") Integer from, @PathParam("to") Integer to) {
-        return super.findRange(new int[]{from, to});
+        return adresTypeDao.findRange(new int[]{from, to});
     }
 
     @GET
     @Path("count")
     @Produces(MediaType.TEXT_PLAIN)
     public String countREST() {
-        return String.valueOf(super.count());
+        return String.valueOf(adresTypeDao.count());
     }
 
-    @Override
-    protected EntityManager getEntityManager() {
-        return em;
-    }
+    
     
 }
