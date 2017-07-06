@@ -26,11 +26,15 @@ public class ConnectionHelper
 	}
 
 	public static Connection getConnection() throws SQLException {
+            String url = "jdbc:mysql://localhost:3306/cellar?zeroDateTimeBehavior=convertToNull";
+            String user = "root";
+            String password = "ultimatejazz";
+            
 		if (instance == null) {
 			instance = new ConnectionHelper();
 		}
 		try {
-			return DriverManager.getConnection(instance.url);
+			return DriverManager.getConnection(url,user,password);
 		} catch (SQLException e) {
 			throw e;
 		}
